@@ -1,0 +1,69 @@
+{# -----------------------------------------------------------------------------
+  Text rendering helpers.
+----------------------------------------------------------------------------- #}
+
+{#
+  Render CKEditor content meant to live inside a heading or other inline-only
+  context. CKEditor always wraps content in `<p>`, so dumping `|raw` inside an
+  `<h2>` produces invalid `<h2><p>...</p></h2>` markup. This macro strips the
+  block-level wrappers while preserving inline formatting and the spans that
+  Typogrify injects (e.g. `<span class="amp">&</span>`).
+
+  Allowed tags: <strong>, <em>, <b>, <i>, <br>, <span>.
+#}
+{% macro inline(html) %}
+  {%- if html|length -%}
+    {{- html|striptags('<strong><em><b><i><br><span>')|typogrify|raw -}}
+  {%- endif -%}
+{% endmacro %}
+
+{#
+  Render a Hyper link-field object (with .url, .label, .target, .ariaLabel)
+  as a styled text-link.
+
+  Usage:
+    {{ text.link(block.cta) }}
+    {{ text.link(block.cta, 'mt-sm') }}
+#}
+{% macro link(cta, extraClasses) %}
+  {%- if cta is not empty and cta.url -%}
+    <a
+      href="{{ cta.url }}"
+      class="text-link type-body-mono{{ extraClasses ? ' ' ~ extraClasses : '' }}"
+      {% if cta.target %}target="{{ cta.target }}"{% endif %}
+      {% if cta.ariaLabel %}aria-label="{{ cta.ariaLabel }}"{% endif %}
+    ><span class="text-link__label">{{ cta.label ?: 'Learn more' }}</span><span class="text-link__arrow" aria-hidden="true">&#160;&#8594;</span></a>
+  {%- endif -%}
+{% endmacro %}
+
+{#
+  Same visual pattern as `link()` for a plain URL + label (no Hyper field).
+  Uses global text-link styles from `text-link.css`.
+
+  Usage:
+    {{ text.linkHref(article.url, 'Read more', 'mt-md') }}
+#}
+{% macro linkHref(href, label, extraClasses) %}
+  {%- if href -%}
+    <a
+      href="{{ href }}"
+      class="text-link type-body-mono{{ extraClasses ? ' ' ~ extraClasses : '' }}"
+    ><span class="text-link__label">{{ label }}</span><span class="text-link__arrow" aria-hidden="true">&#160;&#8594;</span></a>
+  {%- endif -%}
+{% endmacro %}
+
+{#
+  Same classes + label/arrow structure as `linkHref`, but on a `<span>` so it
+  can live inside a larger link (e.g. whole-card `<a>`) without invalid nesting.
+
+  Usage:
+    {{ text.linkInline('Read more', 'mt-3xs') }}
+    {{ text.linkInline('Read more', '', 'type-body-small') }}
+#}
+{% macro linkInline(label, extraClasses, typeUtility) %}
+  {%- if label|length -%}
+    {%- set typeClass = typeUtility|default('type-body-mono') -%}
+    <span class="text-link {{ typeClass }}{{ extraClasses ? ' ' ~ extraClasses : '' }}"
+    ><span class="text-link__label">{{ label }}</span><span class="text-link__arrow" aria-hidden="true">&#160;&#8594;</span></span>
+  {%- endif -%}
+{% endmacro %}

@@ -1,0 +1,45 @@
+columnSuffix: null
+handle: regionalAvailability
+instructions: null
+name: 'Regional Availability'
+searchable: false
+settings:
+  customOptions: false
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Canada
+        -
+          - value
+          - canada
+        -
+          - icon
+          - canadian-maple-leaf
+        -
+          - color
+          - ''
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - US
+        -
+          - value
+          - us
+        -
+          - icon
+          - flag-usa
+        -
+          - color
+          - ''
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\MultiSelect

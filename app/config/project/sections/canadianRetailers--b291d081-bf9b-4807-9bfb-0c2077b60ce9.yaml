@@ -1,0 +1,20 @@
+defaultPlacement: beginning
+enableVersioning: true
+entryTypes:
+  -
+    uid: 9cc1403e-27d1-4423-b0fe-e80fa0d4638c # Retailer
+handle: canadianRetailers
+maxAuthors: 1
+minAuthors: 1
+name: 'Canadian Retailers'
+propagationMethod: all
+siteSettings:
+  8011f8a2-e90c-422c-922a-2a0c736cdfe0: # Butcher's Board
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: 3e2b9708-49ff-4e9f-a1df-f5abc8993297
+type: structure

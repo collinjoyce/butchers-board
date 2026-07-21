@@ -1,0 +1,67 @@
+/* ----------------------------------------------------------------------------
+   Webfonts
+   ----------------------------------------------------------------------------
+   The starter uses a system font stack out of the box (see `--font-sans` in
+   `theme.css`). Drop your `.woff2` files into `src/static/fonts/` and add
+   matching `@font-face` declarations here, then update `--font-sans` to the
+   new family. Don't forget to add `<link rel="preload">` tags in
+   `_layout.twig` for the weights/styles used above the fold.
+   ---------------------------------------------------------------------------- */
+
+/*
+  Example:
+
+  @font-face {
+    font-family: 'YourFont';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/YourFont-Regular.woff2') format('woff2');
+  }
+*/
+
+/* Geist Mono */
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/GeistMono-Bold.woff2') format('woff2');
+}
+
+/* Geist */
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Geist-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+}
+
+/* Kommissar */
+
+@font-face {
+  font-family: 'Kommissar';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Kommissar-Medium.otf') format('opentype');
+}

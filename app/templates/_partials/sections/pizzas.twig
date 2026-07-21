@@ -1,0 +1,128 @@
+{% import '_partials/vite' as vite %}
+
+{#
+  Our Pizzas — products + retailers from Craft, split by regionalAvailability
+  (MultiSelect values: `canada` / `us`) into Canada / USA tabs.
+#}
+
+{% set productEntries = craft.entries().section('products').all() %}
+{# Twig `|filter` (not `.filter()`) — MultiSelect values are `canada` / `us` #}
+{% set canadaPizzas = productEntries|filter(p => 'canada' in p.regionalAvailability) %}
+{% set usaPizzas = productEntries|filter(p => 'us' in p.regionalAvailability) %}
+{% set canadianRetailers = craft.entries().section('canadianRetailers').all() %}
+{% set usRetailers = craft.entries().section('usRetailers').all() %}
+
+{% set markets = [
+  {
+    handle: 'canada',
+    label: 'Canada',
+    flag: '🇨🇦',
+    pizzas: canadaPizzas,
+    retailers: canadianRetailers,
+  },
+  {
+    handle: 'usa',
+    label: 'USA',
+    flag: '🇺🇸',
+    pizzas: usaPizzas,
+    retailers: usRetailers,
+  },
+] %}
+
+<section id="pizzas" class="bg-dark-red pb-5xl pt-4xl text-white" data-module="pizza-tabs">
+
+  <div class="relative container">
+    <h2 class="text-red">
+      {% include '_partials/svg-headline' with {
+        text: 'Our Pizzas',
+        viewBoxHeight: 320,
+        lines: [
+          { text: 'Our Pizzas', y: 300, fontSize: 380 },
+        ],
+      } only %}
+    </h2>
+    <div class="pointer-events-none absolute left-[26%] bottom-[100%] w-[25vw] translate-y-[32%] lg:translate-y-[45%] max-w-[160px] -rotate-10 md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px] ">
+      <img src="{{ vite.url('/images/sticker-frozen-fresh.png') }}" alt="Frozen fresh" class="h-auto w-full" />
+    </div>
+  </div>
+
+  {# Sticky market tab bar — own bg hides content scrolling beneath it #}
+  <div class="sticky top-0 z-20 bg-dark-red">
+    <div class="container flex items-end justify-start gap-2xl md:gap-xl py-2xs mt-xl md:mt-2xl" role="tablist" aria-label="Market">
+      {% for market in markets %}
+        <button
+          type="button"
+          role="tab"
+          id="tab-{{ market.handle }}"
+          data-tab="{{ market.handle }}"
+          aria-selected="{{ loop.first ? 'true' : 'false' }}"
+          aria-controls="pizzas-{{ market.handle }} retailers-{{ market.handle }}"
+          class="group flex cursor-pointer items-center gap-2xs"
+        >
+          <span class="text-[2rem]" aria-hidden="true">{{ market.flag }}</span>
+          <span class="flex flex-col gap-[3px] group">
+            <span class="type-subheadline text-white transition-colors duration-150 group-aria-selected:text-red group-hover:text-red">{{ market.label }}</span>
+            <span class="block h-1 w-full bg-transparent transition-colors duration-150 group-aria-selected:bg-red"></span>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# Variety cards per market #}
+  <div class="container mt-lg">
+    {% for market in markets %}
+      <div
+        id="pizzas-{{ market.handle }}"
+        role="tabpanel"
+        aria-labelledby="tab-{{ market.handle }}"
+        data-tab-panel="{{ market.handle }}"
+        {% if not loop.first %}hidden{% endif %}
+      >
+        <div class="grid grid-cols-2 gap-x-sm md:grid-cols-12">
+          {% for pizza in market.pizzas %}
+            <div class="col-span-2 md:col-span-6 {% if not loop.first %}mt-lg md:mt-0{% endif %}" data-tab-card>
+              {% include '_partials/pizza-card' with { pizza: pizza } only %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {# Retailers — swaps with the active market. scroll-mt clears the sticky tab bar. #}
+  <div id="retailers" class="container mt-2xl scroll-mt-4xl">
+    <h3 class="type-subheadline text-center">Retailers</h3>
+
+    {% for market in markets %}
+      <div
+        id="retailers-{{ market.handle }}"
+        role="tabpanel"
+        aria-labelledby="tab-{{ market.handle }}"
+        data-tab-panel="{{ market.handle }}"
+        {% if not loop.first %}hidden{% endif %}
+      >
+        <ul class="mt-sm flex flex-wrap items-center justify-center gap-x-2xl gap-y-md">
+          {% for retailer in market.retailers %}
+            {% set logo = retailer.logo.one() ?? null %}
+            <li class="flex h-[100px] w-[140px] items-center justify-center md:w-[200px]" data-tab-retailer>
+              {% if logo %}
+                {% include '_partials/asset-media' with {
+                  asset: logo,
+                  options: { sizes: '200px', defaultWidth: 400, widths: [200, 400] },
+                } only %}
+              {% else %}
+                {% include '_partials/image-placeholder' with {
+                  text: retailer.title,
+                  width: 200,
+                  height: 100,
+                  class: 'h-auto max-h-full w-full object-contain',
+                } only %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</section>

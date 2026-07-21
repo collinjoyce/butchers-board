@@ -1,0 +1,42 @@
+{% import '_partials/vite' as vite %}
+
+<section class="relative overflow-hidden bg-brown">
+  <img
+    src="{{ vite.url('/images/texture-02.jpg') }}"
+    alt=""
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
+  />
+
+  <div class="relative">
+    <h1 class="container pt-hero-top md:pt-hero-top-md lg:pt-hero-top-lg text-red">
+      {% include '_partials/svg-headline' with {
+        text: hero.headlineA ~ ' ' ~ hero.headlineB,
+        viewBoxHeight: 400,
+        lines: [
+          { text: hero.headlineA, y: 150, fontSize: 203, lengthAdjust: 'spacing' },
+          { text: hero.headlineB, y: 398, fontSize: 312, lengthAdjust: 'spacingAndGlyphs' },
+        ],
+      } only %}
+    </h1>
+
+    <div class="relative mt-xl md:mt-2xl">
+      <div class="pointer-events-none absolute -top-xl left-[16%] z-10 w-[25vw] max-w-[160px] -rotate-10 md:-top-3xl md:left-[18%] md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]">
+        <img src="{{ vite.url('/images/sticker-no-preservatives.png') }}" alt="No artificial preservatives" class="h-auto w-full" />
+      </div>
+
+      <div class="pointer-events-none absolute -top-sm left-[56%] md:left-[52%] lg:left-[48%] z-10 w-[25vw] max-w-[160px] rotate-10 md:-top-md md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]">
+        <img src="{{ vite.url('/images/sticker-no-nitrates.png') }}" alt="No nitrates or nitrites added" class="h-auto w-full" />
+      </div>
+
+      <div class="relative aspect-square w-full overflow-hidden md:aspect-[16/7]" data-module="parallax">
+        <img
+          src="{{ vite.url('/images/pizza-bg.jpg') }}"
+          alt="Close-up of a pepperoni pizza"
+          data-parallax-media
+          class="absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

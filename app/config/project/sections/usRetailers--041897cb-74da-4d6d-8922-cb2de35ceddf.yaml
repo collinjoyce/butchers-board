@@ -1,0 +1,20 @@
+defaultPlacement: beginning
+enableVersioning: true
+entryTypes:
+  -
+    uid: 9cc1403e-27d1-4423-b0fe-e80fa0d4638c # Retailer
+handle: usRetailers
+maxAuthors: 1
+minAuthors: 1
+name: 'US Retailers'
+propagationMethod: all
+siteSettings:
+  8011f8a2-e90c-422c-922a-2a0c736cdfe0: # Butcher's Board
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: 00df194a-d837-49a6-9973-cf16df1e86ef
+type: structure

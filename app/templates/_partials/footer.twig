@@ -1,0 +1,45 @@
+{% import '_partials/vite' as vite %}
+
+<footer id="site-footer" class="site-footer relative overflow-hidden bg-black text-white">
+  <img
+    src="{{ vite.url('/images/texture-01.jpg') }}"
+    alt=""
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover"
+  />
+
+  <div class="site-footer__inner relative" id="site-footer-content">
+    <div class="container pb-lg pt-2xl">
+      <div class="flex justify-center">
+        <div class="w-[240px] text-red md:w-[336px] [&_svg]:h-auto [&_svg]:w-full">
+          {% include '_svgs/logo.twig' %}
+        </div>
+      </div>
+
+      {# Single row below the logo: disclaimer left, icon + utility links centered #}
+      <div class="mt-lg items-end gap-md lg:mt-2xl lg:grid lg:grid-cols-[1fr_auto_1fr]">
+        <p class="type-fine lg:text-left text-center max-w-[322px] m-auto lg:m-0">
+          *No nitrates or nitrites added except for those naturally occurring in
+          sea salt and cultured celery juice powder.
+        </p>
+
+        <ul class="type-legal mt-md flex flex-wrap items-center justify-center gap-md lg:mt-0">
+          <li class="w-full text-center">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Butcher's Board on Instagram"
+              class="inline-flex items-center justify-center text-white transition-opacity duration-150 hover:opacity-70 [&_svg]:h-[22px] [&_svg]:w-[22px] [&_svg]:fill-current"
+            >
+              {% include '_svgs/icon-instagram.twig' %}
+            </a>
+          </li>
+          <li><a href="/privacy-policy" class="no-underline hover:underline">Privacy Policy</a></li>
+          <li><a href="/terms" class="no-underline hover:underline">Terms</a></li>
+          <li>&copy; {{ now|date('Y') }} Butcher&rsquo;s Board</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,41 @@
+{% extends '_layout' %}
+
+{# =============================================================================
+   Homepage
+   =============================================================================
+   Content is dummy data for now. When the CMS model is ready, replace each
+   `{% set %}` block below with entry field values (e.g. a `home` Single with
+   matching fields) — the section partials only read the variables passed in,
+   so nothing inside them needs to change.
+   ============================================================================= #}
+
+{% set hero = {
+  headlineA: 'Pizza Made Better',
+  headlineB: 'By Butchers',
+  image: null,
+} %}
+
+{% set about = {
+  eyebrow: "Better is the Butcher's way.",
+  paragraphs: [
+    "Around here, we don't believe in skimpy slices or filler ingredients.
+      Butcher's Board makes butcher-quality frozen pizza with thick-cut meats,
+      crisp gluten-free crust, dairy-free cheese worth melting for—and none of
+      the artificial stuff. More bite. More topping. More of what's best.",
+    "That's our pledge.",
+  ],
+} %}
+
+{% set contact = {
+  headline: 'Contact',
+  text: "Have a question? We'd love to hear from you. Whether you're looking
+    for product information, wholesale opportunities, or something else
+    entirely, send us a message and we'll be in touch.",
+} %}
+
+{% block content %}
+  {% include '_partials/sections/hero' with { hero: hero } only %}
+  {% include '_partials/sections/about' with { about: about } only %}
+  {% include '_partials/sections/pizzas' %}
+  {% include '_partials/sections/contact' with { contact: contact } only %}
+{% endblock %}

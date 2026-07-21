@@ -1,0 +1,14 @@
+{
+  "name": "Craft Vite Starter",
+  "short_name": "Starter",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

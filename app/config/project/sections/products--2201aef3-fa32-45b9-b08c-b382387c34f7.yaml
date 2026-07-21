@@ -1,0 +1,25 @@
+defaultPlacement: beginning
+enableVersioning: true
+entryTypes:
+  -
+    uid: 1ff7f9dc-2b5d-4c4b-953f-4f548e21dd68 # Product
+handle: products
+maxAuthors: 1
+minAuthors: 1
+name: Products
+previewTargets:
+  -
+    label: 'Primary entry page'
+    refresh: '1'
+    urlFormat: '{url}'
+propagationMethod: all
+siteSettings:
+  8011f8a2-e90c-422c-922a-2a0c736cdfe0: # Butcher's Board
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: 665666c7-015d-447c-934f-97bf2cf3055a
+type: structure

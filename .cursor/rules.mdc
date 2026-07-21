@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+If agents.md exists at root, always use it.

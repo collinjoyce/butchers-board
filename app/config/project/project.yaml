@@ -1,0 +1,118 @@
+dateModified: 1784600899
+elementSources:
+  craft\elements\Entry:
+    -
+      defaultSort:
+        - postDate
+        - desc
+      defaultViewMode: ''
+      disabled: false
+      key: '*'
+      page: Entries
+      tableAttributes:
+        - status
+        - section
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:2201aef3-fa32-45b9-b08c-b382387c34f7' # Products
+      page: Products
+      tableAttributes:
+        - 'field:23f997bc-55fb-4b20-82bd-903504b26a15' # Regional Availability
+        - status
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:b291d081-bf9b-4807-9bfb-0c2077b60ce9' # Canadian Retailers
+      page: 'Canadian Retailers'
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      key: 'section:041897cb-74da-4d6d-8922-cb2de35ceddf' # US Retailers
+      page: 'US Retailers'
+      type: native
+elementSourcesPages:
+  craft\elements\Entry:
+    'Canadian Retailers':
+      icon: canadian-maple-leaf
+    Products:
+      icon: pizza
+    'US Retailers':
+      icon: flag-usa
+email:
+  fromEmail: admin@example.com
+  fromName: 'Craft Vite Starter'
+  transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    1ff7f9dc-2b5d-4c4b-953f-4f548e21dd68: Product # Product
+    2c07b4fb-9552-4435-bb30-f4f9e6d82d62: New # New
+    4ca0af94-38c0-416c-8219-5cd8ab2b8f43: 'Contact Form' # Contact Form
+    9cc1403e-27d1-4423-b0fe-e80fa0d4638c: Retailer # Retailer
+    23f997bc-55fb-4b20-82bd-903504b26a15: 'Regional Availability' # Regional Availability
+    896eb816-f0a0-4c2e-928b-d07a29246ba4: Images # Images
+    2201aef3-fa32-45b9-b08c-b382387c34f7: Products # Products
+    8011f8a2-e90c-422c-922a-2a0c736cdfe0: "Butcher's Board" # Butcher's Board
+    041897cb-74da-4d6d-8922-cb2de35ceddf: 'US Retailers' # US Retailers
+    42269bf6-d8ef-4687-ba9d-7244872a8577: Features # Features
+    44746fad-89ea-486e-8bd0-12a14ca31a2a: Logo # Logo
+    ad1d15ad-fe1c-4f22-b214-c5094a425ba4: 'Craft Vite Starter' # Craft Vite Starter
+    aea84f82-90c5-46de-b62f-2a37e7702428: Heading # Heading
+    b291d081-bf9b-4807-9bfb-0c2077b60ce9: 'Canadian Retailers' # Canadian Retailers
+    ee3f361c-9779-4901-b6ed-ba424bc17e8e: Body # Body
+    f8d2a2eb-5061-42ec-a15c-5ef226d4f538: Image # Image
+plugins:
+  ckeditor:
+    edition: standard
+    enabled: true
+    schemaVersion: 5.6.0.0
+  expanded-singles:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  imager-x:
+    edition: lite
+    enabled: true
+    licenseKey: O3RMBU32NBSXU980NPDQVAI0
+    schemaVersion: 4.0.0
+  seomatic:
+    edition: standard
+    enabled: true
+    licenseKey: 9OH4FBLVG712NKYMGLAR5V2C
+    schemaVersion: 3.0.13
+  servd-asset-storage:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0
+  typogrify:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+system:
+  edition: solo
+  live: true
+  name: 'Craft Vite Starter'
+  schemaVersion: 5.10.0.0
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  require2fa: false
+  requireEmailVerification: true

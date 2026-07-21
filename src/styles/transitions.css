@@ -1,0 +1,60 @@
+/**
+ * Page transitions — initial load reveal + Swup cross-page fade + scale.
+ *
+ * [data-swup-transition] wraps everything below the header (<main>, <footer>).
+ * The header is always visible.
+ */
+
+[data-swup-transition] {
+  transform-origin: top center;
+  /* Only opacity is used — filter transitions are commented out throughout.
+     Including filter here can cause Safari to hold a compositing layer on this
+     element, which would break position:sticky for descendants. */
+  transition: opacity 0.25s ease;
+}
+
+/* ── Initial page load ────────────────────────────────────────────────────
+ * Content is hidden until JS removes `is-page-loading` from <html>.
+ * The double-rAF in main.js ensures the CSS transition plays from this
+ * initial state rather than being skipped by the browser.
+ */
+html.is-page-loading [data-swup-transition] {
+  opacity: 0;
+}
+
+html.is-page-loading .loading-indicator {
+  opacity: 1;
+}
+
+/* ── Swup page transitions ────────────────────────────────────────────────
+ * is-animating spans both the leave + enter phases, keeping content
+ * invisible while the DOM swap happens in between.
+ *
+ * is-leaving / is-rendering drive the scale direction:
+ *   Leave  — content shrinks slightly as it fades out.
+ *   Enter  — content starts at 0.95 and scales up to 1 as it fades in
+ *            (triggered when Swup removes is-animating + is-rendering).
+ */
+html.is-animating [data-swup-transition] {
+  opacity: 0;
+}
+
+html.is-animating .loading-indicator {
+  opacity: 1;
+}
+
+html.is-leaving [data-swup-transition] {
+  /* filter: blur(10px); */
+}
+
+html.is-leaving .loading-indicator {
+  opacity: 1;
+}
+
+html.is-rendering [data-swup-transition] {
+  /* filter: blur(10px); */
+}
+
+html.is-rendering .loading-indicator {
+  opacity: 1;
+}

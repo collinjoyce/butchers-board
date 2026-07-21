@@ -1,0 +1,56 @@
+.rich-text {
+  > * {
+    margin-bottom: 1.25em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+
+  p, ul, ol {
+    @apply type-body;
+    line-height: 1.45;
+
+    a {
+      @apply  underline decoration-current transition-colors hover:decoration-transparent underline-offset-4;
+    }
+  }
+
+  ul {
+    @apply list-disc list-inside;
+  }
+
+  ol {
+    @apply list-decimal list-inside;
+  }
+
+  li {
+    @apply pl-xs;
+  }
+
+  h2 {
+    @apply type-h3;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h3 {
+    @apply type-eyebrow;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h4 {
+    @apply type-body font-bold;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h5 {
+    @apply type-body-small font-bold;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+}

@@ -1,0 +1,22 @@
+{#
+  404 template — rendered whenever Craft cannot route an incoming request.
+  See https://craftcms.com/docs/5.x/system/routing.html for details.
+#}
+{% extends "_layout" %}
+{% set title = "Page not found" %}
+
+{% block content %}
+  {# pt-hero-top clears the absolutely-positioned site header #}
+  <section class="container pt-hero-top pb-6xl text-center">
+    <h1 class="type-headline-xl text-red">404</h1>
+    <p class="mt-md type-subheadline">Page not found.</p>
+    <p class="mt-sm type-body max-w-prose mx-auto">
+      We couldn't find the page you were looking for.
+    </p>
+    <div class="mt-lg flex justify-center">
+      <a href="/" class="type-body-mono inline-flex items-center justify-center bg-dark-red px-lg py-sm text-white no-underline transition-opacity duration-150 hover:opacity-80">
+        Back to home
+      </a>
+    </div>
+  </section>
+{% endblock %}

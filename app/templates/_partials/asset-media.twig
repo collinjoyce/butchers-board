@@ -1,0 +1,286 @@
+{#
+ # Renders a Media volume asset (image or video).
+ #
+ # Optional mobile override: the asset's `media` field ("Mobile Image" in CP).
+ # When set, that asset is used below --breakpoint-sm (40rem / 640px).
+ #
+ # Required:
+ #   asset — Craft asset from the media volume
+ #
+ # Optional `options`: class, loading, lazyload, lazyMode ('srcset'|'single'),
+ #   sizes, widths, mobileWidths, defaultWidth, lqipWidth, format, quality, alt, ariaHidden
+ #
+ # Each width in `widths` / `mobileWidths` is expanded with a 2x variant for retina srcsets.
+ #}
+{% set asset = asset ?? null %}
+{% if asset %}
+  {% set options = options|default({}) %}
+  {% set useMobileOverride = options.useMobileOverride ?? true %}
+  {% set mobile = useMobileOverride ? (asset.media.one() ?? null) : null %}
+  {% set class = options.class ?? '' %}
+  {% set loading = options.loading ?? 'lazy' %}
+  {% set lazyload = options.lazyload ?? (loading != 'eager') %}
+  {% set lazyMode = options.lazyMode ?? 'srcset' %}
+  {% set sizes = options.sizes ?? '100vw' %}
+  {% set lqipWidth = options.lqipWidth ?? 32 %}
+  {% set format = options.format ?? 'webp' %}
+  {% set quality = options.quality ?? 90 %}
+  {% set transformOpts = { format: format, webpQuality: quality, jpegQuality: quality } %}
+  {% set baseWidths = options.widths ?? [640, 960, 1280, 1920] %}
+  {% set baseMobileWidths = options.mobileWidths ?? [320, 480, 640] %}
+  {% set widths = [] %}
+  {% for w in baseWidths %}
+    {% set widths = widths|merge([w]) %}
+    {% if (w * 2) not in baseWidths %}
+      {% set widths = widths|merge([w * 2]) %}
+    {% endif %}
+  {% endfor %}
+  {% set widths = widths|sort|unique %}
+  {% set mobileWidths = [] %}
+  {% for w in baseMobileWidths %}
+    {% set mobileWidths = mobileWidths|merge([w]) %}
+    {% if (w * 2) not in baseMobileWidths %}
+      {% set mobileWidths = mobileWidths|merge([w * 2]) %}
+    {% endif %}
+  {% endfor %}
+  {% set mobileWidths = mobileWidths|sort|unique %}
+  {% set defaultWidth = options.defaultWidth ?? widths|last %}
+  {% if defaultWidth < widths|last %}
+    {% set defaultWidth = widths|last %}
+  {% endif %}
+  {% set alt = options.alt is defined ? options.alt : (asset.alt|default(asset.title)) %}
+  {% set ariaHidden = options.ariaHidden ?? false %}
+  {% set mobileQuery = '(width < 40rem)' %}
+  {% set ariaAttr = ariaHidden ? ' aria-hidden="true"' : '' %}
+  {% set altAttr = ariaHidden ? '' : ' alt="' ~ alt|e ~ '"' %}
+  {% set mobileOnlyClass = class ~ ' hidden max-sm:block' %}
+  {% set desktopOnlyClass = class ~ ' hidden sm:block' %}
+
+  {% if mobile and mobile.kind == 'video' and asset.kind != 'video' %}
+    <video
+      class="{{ mobileOnlyClass }}"
+      src="{{ mobile.url }}"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      {{- ariaAttr|raw -}}
+    ></video>
+    {% include '_partials/asset-media.twig' with {
+      asset: asset,
+      options: options|merge({ class: desktopOnlyClass, useMobileOverride: false }),
+    } only %}
+  {% elseif asset.kind == 'video' %}
+    {% if mobile and mobile.kind == 'video' %}
+      <video
+        class="{{ mobileOnlyClass }}"
+        src="{{ mobile.url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {{- ariaAttr|raw -}}
+      ></video>
+      <video
+        class="{{ desktopOnlyClass }}"
+        src="{{ asset.url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {{- ariaAttr|raw -}}
+      ></video>
+    {% elseif mobile %}
+      {# Desktop video + mobile still (common for full-bleed hero media) #}
+      {% include '_partials/asset-media.twig' with {
+        asset: mobile,
+        options: options|merge({
+          class: mobileOnlyClass,
+          useMobileOverride: false,
+        }),
+      } only %}
+      <video
+        class="{{ desktopOnlyClass }}"
+        src="{{ asset.url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {{- ariaAttr|raw -}}
+      ></video>
+    {% else %}
+      <video
+        class="{{ class }}"
+        src="{{ asset.url }}"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        {{- ariaAttr|raw -}}
+      ></video>
+    {% endif %}
+  {% elseif mobile %}
+    {% set mobileIsSvg = mobile.extension|lower == 'svg' %}
+    {% set desktopIsSvg = asset.extension|lower == 'svg' %}
+
+    {% if mobileIsSvg or desktopIsSvg %}
+      {% if mobileIsSvg %}
+        <img
+          class="{{ mobileOnlyClass }}"
+          src="{{ mobile.url }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% else %}
+        {% set mobWidthParams = [] %}
+        {% for w in mobileWidths %}
+          {% set mobWidthParams = mobWidthParams|merge([{ width: w }]) %}
+        {% endfor %}
+        {% set mobTransform = craft.imagerx.transformImage(mobile, { width: mobileWidths|last }|merge(transformOpts)) %}
+        {% set mobSrcset = craft.imagerx.transformImage(mobile, mobWidthParams, transformOpts) %}
+        <img
+          class="{{ mobileOnlyClass }}"
+          src="{{ mobTransform.url }}"
+          srcset="{{ craft.imagerx.srcset(mobSrcset) }}"
+          sizes="{{ sizes }}"
+          width="{{ mobTransform.width }}"
+          height="{{ mobTransform.height }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% endif %}
+
+      {% if desktopIsSvg %}
+        <img
+          class="{{ desktopOnlyClass }}"
+          src="{{ asset.url }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% else %}
+        {% set deskWidthParams = [] %}
+        {% for w in widths %}
+          {% set deskWidthParams = deskWidthParams|merge([{ width: w }]) %}
+        {% endfor %}
+        {% set deskTransform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
+        {% set deskSrcset = craft.imagerx.transformImage(asset, deskWidthParams, transformOpts) %}
+        <img
+          class="{{ desktopOnlyClass }}"
+          src="{{ deskTransform.url }}"
+          srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
+          sizes="{{ sizes }}"
+          width="{{ deskTransform.width }}"
+          height="{{ deskTransform.height }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% endif %}
+    {% else %}
+      {% set mobWidthParams = [] %}
+      {% for w in mobileWidths %}
+        {% set mobWidthParams = mobWidthParams|merge([{ width: w }]) %}
+      {% endfor %}
+      {% set deskWidthParams = [] %}
+      {% for w in widths %}
+        {% set deskWidthParams = deskWidthParams|merge([{ width: w }]) %}
+      {% endfor %}
+      {% set mobSrcset = craft.imagerx.transformImage(mobile, mobWidthParams, transformOpts) %}
+      {% set deskSrcset = craft.imagerx.transformImage(asset, deskWidthParams, transformOpts) %}
+      {% set deskTransform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
+      {% set deskLqip = craft.imagerx.transformImage(asset, { width: lqipWidth }|merge(transformOpts)) %}
+
+      {% if lazyload %}
+        <picture>
+          <source media="{{ mobileQuery }}" data-srcset="{{ craft.imagerx.srcset(mobSrcset) }}" type="image/{{ format }}">
+          <source data-srcset="{{ craft.imagerx.srcset(deskSrcset) }}" type="image/{{ format }}">
+          <img
+            class="{{ class }} lazyload"
+            src="{{ deskLqip.url }}"
+            data-sizes="{{ sizes }}"
+            width="{{ deskTransform.width }}"
+            height="{{ deskTransform.height }}"
+            loading="{{ loading }}"
+            {{- altAttr|raw -}}
+          >
+        </picture>
+      {% else %}
+        <picture>
+          <source media="{{ mobileQuery }}" srcset="{{ craft.imagerx.srcset(mobSrcset) }}" type="image/{{ format }}">
+          <source srcset="{{ craft.imagerx.srcset(deskSrcset) }}" type="image/{{ format }}">
+          <img
+            class="{{ class }}"
+            src="{{ deskTransform.url }}"
+            srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
+            sizes="{{ sizes }}"
+            width="{{ deskTransform.width }}"
+            height="{{ deskTransform.height }}"
+            loading="{{ loading }}"
+            {{- altAttr|raw -}}
+          >
+        </picture>
+      {% endif %}
+    {% endif %}
+  {% else %}
+    {% set isSvg = asset.extension|lower == 'svg' %}
+    {% if isSvg %}
+      <img
+        class="{{ class }}"
+        src="{{ asset.url }}"
+        loading="{{ loading }}"
+        {{- altAttr|raw -}}
+      >
+    {% elseif lazyload %}
+      {% set lqip = craft.imagerx.transformImage(asset, { width: lqipWidth }|merge(transformOpts)) %}
+      {% set transform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
+      {% if lazyMode == 'single' %}
+        <img
+          class="{{ class }} lazyload"
+          src="{{ lqip.url }}"
+          data-src="{{ transform.url }}"
+          width="{{ transform.width }}"
+          height="{{ transform.height }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% else %}
+        {% set widthParams = [] %}
+        {% for w in widths %}
+          {% set widthParams = widthParams|merge([{ width: w }]) %}
+        {% endfor %}
+        {% set srcset = craft.imagerx.transformImage(asset, widthParams, transformOpts) %}
+        <img
+          class="{{ class }} lazyload"
+          src="{{ lqip.url }}"
+          data-srcset="{{ craft.imagerx.srcset(srcset) }}"
+          data-sizes="{{ sizes }}"
+          width="{{ transform.width }}"
+          height="{{ transform.height }}"
+          loading="{{ loading }}"
+          {{- altAttr|raw -}}
+        >
+      {% endif %}
+    {% else %}
+      {% set transform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
+      {% set widthParams = [] %}
+      {% for w in widths %}
+        {% set widthParams = widthParams|merge([{ width: w }]) %}
+      {% endfor %}
+      {% set srcset = craft.imagerx.transformImage(asset, widthParams, transformOpts) %}
+      <img
+        class="{{ class }}"
+        src="{{ transform.url }}"
+        srcset="{{ craft.imagerx.srcset(srcset) }}"
+        sizes="{{ sizes }}"
+        width="{{ transform.width }}"
+        height="{{ transform.height }}"
+        loading="{{ loading }}"
+        {{- altAttr|raw -}}
+      >
+    {% endif %}
+  {% endif %}
+{% endif %}

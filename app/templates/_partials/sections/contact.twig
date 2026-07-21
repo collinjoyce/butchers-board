@@ -1,0 +1,21 @@
+<section id="contact" class="bg-mist text-dark-red">
+  <div class="overflow-hidden py-3xl pb-xl lg:py-3xl">
+    <h2 class="type-headline-xl whitespace-nowrap text-center text-red" data-module="headline-reveal">
+      {% for word in contact.headline|split(' ') %}
+        <span class="inline-block" data-headline-word>{{ word }}</span>{% if not loop.last %} {% endif %}
+      {% endfor %}
+    </h2>
+  </div>
+
+  <div>
+    <div class="container grid grid-cols-2 gap-x-sm pb-4xl lg:pt-2xl md:grid-cols-12">
+      <div class="col-span-2 md:col-span-5">
+        <p class="type-body text-center md:text-left max-w-[470px] mx-auto md:mx-0">{{ contact.text }}</p>
+      </div>
+
+      <div class="col-span-2 mt-lg md:col-span-6 md:col-start-7 md:mt-0">
+        {% include '_partials/contact-form' %}
+      </div>
+    </div>
+  </div>
+</section>

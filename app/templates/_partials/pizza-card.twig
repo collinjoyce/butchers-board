@@ -1,0 +1,66 @@
+{#
+  Single pizza variety card (mist panel inside the Our Pizzas tabs).
+
+  Params: pizza — a `products` section entry
+    (title, description, features table, images)
+#}
+
+{% set image = pizza.images.one() ?? null %}
+{% set featureRows = pizza.features ?? [] %}
+
+<article class="flex h-full flex-col items-center rounded-card bg-mist px-md pb-4xl pt-2xl text-dark-red">
+  <div class="w-full max-w-[500px]">
+    {% if image %}
+      {% include '_partials/asset-media' with {
+        asset: image,
+        options: {
+          sizes: '(min-width: 784px) 45vw, 90vw',
+          defaultWidth: 1000,
+          widths: [480, 640, 800, 1000],
+        },
+      } only %}
+    {% else %}
+      {% include '_partials/image-placeholder' with {
+        text: pizza.title ~ ' box',
+        width: 986,
+        height: 862,
+        class: 'h-auto w-full',
+      } only %}
+    {% endif %}
+  </div>
+
+  <div class="mt-2xl w-full max-w-[625px]">
+    <h3 class="type-h3 max-w-[456px]">{{ pizza.title }}</h3>
+
+    {% if pizza.description %}
+      <div class="type-body mt-lg max-w-[512px]">{{ pizza.description|typogrify|raw }}</div>
+    {% endif %}
+
+    {% if featureRows|length %}
+      <div class="mt-lg">
+        <h4 class="type-eyebrow">Features</h4>
+        <ul class="type-body-mono mt-3xs list-disc pl-[1.1em]">
+          {% for row in featureRows %}
+            {% if row.feature %}
+              <li>{{ row.feature }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="flex gap-sm items-center">
+      {# {% if pizza.nutritionFacts|length %} #}
+        <div class="mt-lg">
+          <h4 class="type-eyebrow-sm underline text-red hover:text-dark-red transition-colors duration-150 cursor-pointer">Nutrition Facts</h4>
+        </div>
+      {# {% endif %} #}
+
+      {# {% if pizza.nutritionFacts|length %} #}
+        <div class="mt-lg">
+          <h4 class="type-eyebrow-sm underline text-red hover:text-dark-red transition-colors duration-150 cursor-pointer">Ingredients</h4>
+        </div>
+      {# {% endif %} #}
+    </div>
+  </div>
+</article>

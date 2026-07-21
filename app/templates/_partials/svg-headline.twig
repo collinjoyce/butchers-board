@@ -1,0 +1,32 @@
+{#
+  Params:
+    text — accessible full headline (sr-only)
+    lines — [{ text, y, fontSize, lengthAdjust? }]
+    viewBoxHeight — SVG viewBox height (width is always 1440)
+#}
+{% set viewBoxHeight = viewBoxHeight|default(320) %}
+
+<span class="sr-only">{{ text }}</span>
+<div class="overflow-hidden" data-module="headline-reveal">
+  <svg
+    viewBox="0 0 1440 {{ viewBoxHeight }}"
+    aria-hidden="true"
+    focusable="false"
+    preserveAspectRatio="xMidYMid meet"
+    class="block h-auto w-full fill-current font-display font-medium uppercase"
+  >
+    {% for line in lines %}
+      <text
+        x="0"
+        y="{{ line.y }}"
+        font-size="{{ line.fontSize }}"
+        textLength="1440"
+        lengthAdjust="{{ line.lengthAdjust|default('spacingAndGlyphs') }}"
+      >
+        {% for word in line.text|split(' ') %}
+          <tspan data-headline-word data-font-size="{{ line.fontSize }}" font-size="{{ line.fontSize }}">{{ word }}{% if not loop.last %} {% endif %}</tspan>
+        {% endfor %}
+      </text>
+    {% endfor %}
+  </svg>
+</div>

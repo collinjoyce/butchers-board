@@ -1,0 +1,25 @@
+/* ----------------------------------------------------------------------------
+   Footer — "garage door" reveal (desktop).
+
+   The footer is fixed to the viewport bottom underneath the page content
+   (`.site-main` sits above it on z-index 1 with an opaque background).
+   `.site-main` reserves the footer's height as bottom margin — kept in sync by
+   `FooterScrollAnimation` via `--footer-reveal-height` — so scrolling past the
+   end of the page slides the content up and reveals the footer beneath it.
+
+   Below `md` the footer stays in normal flow.
+   ---------------------------------------------------------------------------- */
+
+@media (width >= theme(--breakpoint-md)) {
+  .site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .site-main {
+    margin-bottom: var(--footer-reveal-height, 0px);
+  }
+}

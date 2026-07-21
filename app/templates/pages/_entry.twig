@@ -1,0 +1,15 @@
+{# Pages section entry template — misc pages (Privacy Policy, Terms, etc.).
+   `entry` is always populated here since Craft only renders this template
+   when a `pages` entry URL resolves. #}
+{% extends '_layout' %}
+
+{% block content %}
+  {# pt-hero-top clears the absolutely-positioned site header #}
+  <article class="container pt-hero-top pb-4xl max-w-prose">
+    <h1 class="type-h3 mb-lg">{{ entry.title }}</h1>
+
+    {% if entry.bodyContent is defined and entry.bodyContent %}
+      <div class="rich-text">{{ entry.bodyContent|typogrify|raw }}</div>
+    {% endif %}
+  </article>
+{% endblock %}

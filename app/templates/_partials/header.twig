@@ -1,0 +1,63 @@
+{#
+  Site header — non-sticky, sits transparently over the top of the page
+  (the hero supplies the background behind it).
+
+  Desktop: [links] [logo] [links] on one row.
+  Mobile:  logo row, then all links inline on a second row (11px).
+#}
+
+{% set navLeft = [
+  { label: 'About Us', href: '/#about' },
+  { label: 'Our Pizzas', href: '/#pizzas' },
+] %}
+{% set navRight = [
+  { label: 'Retailers', href: '/#retailers' },
+  { label: 'Contact', href: '/#contact' },
+] %}
+
+<header id="site-header" class="absolute top-0 left-0 z-10 w-full">
+  <div class="container py-sm md:py-xl">
+
+    {# Mobile: logo above, links inline below. Desktop: 3-col row. #}
+    <div class="flex flex-col items-center gap-sm md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-0">
+
+      <nav class="order-2 md:order-1 md:justify-self-start" aria-label="Primary">
+        <ul class="flex items-center gap-sm md:gap-md lg:gap-xl">
+          {% for item in navLeft %}
+            <li>
+              <a href="{{ item.href }}" class="type-nav text-dark-red no-underline hover:text-red transition-colors duration-150">
+                {{ item.label }}
+              </a>
+            </li>
+          {% endfor %}
+
+          {# Mobile-only: right-hand links join the same inline row #}
+          {% for item in navRight %}
+            <li class="md:hidden">
+              <a href="{{ item.href }}" class="type-nav text-dark-red no-underline hover:text-red transition-colors duration-150">
+                {{ item.label }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <a href="/" class="order-1 md:order-2 w-[180px] text-black md:w-[202px] ml:w-[260px] lg:w-[302px] [&_svg]:h-auto [&_svg]:w-full" aria-label="Butcher's Board — homepage">
+        {% include '_svgs/logo.twig' %}
+      </a>
+
+      <nav class="order-3 hidden md:block md:justify-self-end" aria-label="Secondary">
+        <ul class="flex items-center gap-sm md:gap-md lg:gap-xl">
+          {% for item in navRight %}
+            <li>
+              <a href="{{ item.href }}" class="type-nav text-dark-red no-underline hover:text-red transition-colors duration-150">
+                {{ item.label }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</header>

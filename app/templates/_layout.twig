@@ -1,0 +1,57 @@
+{% include '_partials/vite' ignore missing %}
+{% import '_partials/vite' as vite %}
+
+{#
+# =========================================================
+# Layout template
+# =========================================================
+#
+# This template defines your site's global layout. It can be
+# "extended" by other templates to fill in the gaps.
+#
+# See Twig's Template Inheritance documentation for more details:
+# http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+
+
+{# --------------------------------------------------------- #}
+{# Output
+{# --------------------------------------------------------- #}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ craft.app.language }}" class="no-js is-page-loading">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ vite.url('/favicon.svg') }}" type="image/svg+xml">
+    <link rel="manifest" href="{{ vite.url('/site.webmanifest') }}">
+
+    {# Above-the-fold font weights #}
+    <link rel="preload" href="{{ vite.url('/fonts/Kommissar-Medium.otf') }}" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="{{ vite.url('/fonts/GeistMono-Medium.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ vite.url('/fonts/Geist-Medium.woff2') }}" as="font" type="font/woff2" crossorigin>
+
+    {# SEOMatic injects <title>, meta tags, Open Graph, JSON-LD, etc. #}
+    {% hook 'seomaticRender' %}
+
+  </head>
+
+  <body>
+    <div id="site-scrim" data-site-scrim></div>
+
+    {# Add Skip to Content link #}
+    {% include '_partials/skip-to-content-link' %}
+
+    {% include '_partials/header' %}
+
+    {% include "_partials/loading-indicator" %}
+
+    <div data-swup-transition>
+
+      <main id="main-content" class="site-main" tabindex="-1">
+        {% block content %}{% endblock %}
+      </main>
+
+      {% include '_partials/footer' %}
+
+    </div>
+  </body>
+</html>

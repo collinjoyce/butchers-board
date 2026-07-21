@@ -1,0 +1,43 @@
+# SYSTEM
+.DS_Store
+Thumbs.db
+.eslintcache
+
+# DEPENDENCIES
+/node_modules
+/app/vendor
+
+# BUILD OUTPUT
+/app/web/dist
+
+# CRAFT
+/app/.env
+/app/.env.backup
+/app/storage/runtime
+/app/storage/logs
+/app/storage/composer-backups
+/app/web/cpresources
+/app/config/license.key
+
+# LOGS
+/yarn-error.log
+/npm-debug.log
+*.log
+/logs/
+
+# TEMP
+.cache
+/tmp
+
+# MISC FILES
+.idea
+.project
+.settings
+*.esproj
+*.sublime-workspace
+*.sublime-project
+*.tmproj
+*.tmproject
+.vscode
+config.codekit3
+prepros-6.config

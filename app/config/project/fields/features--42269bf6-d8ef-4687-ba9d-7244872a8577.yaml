@@ -1,0 +1,40 @@
+columnSuffix: null
+handle: features
+instructions: null
+name: Features
+searchable: false
+settings:
+  addRowLabel: 'Add a feature'
+  columns:
+    __assoc__:
+      -
+        - col1
+        -
+          __assoc__:
+            -
+              - heading
+              - Feature
+            -
+              - handle
+              - feature
+            -
+              - width
+              - ''
+            -
+              - type
+              - singleline
+  defaults:
+    -
+      __assoc__:
+        -
+          - col1
+          - ''
+        -
+          - rowId
+          - 3c41393d-61fc-4f72-9ce6-d48579f7af48
+  maxRows: null
+  minRows: null
+  staticRows: false
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

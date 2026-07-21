@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@import './theme.css';
+@import './_webfonts.css';
+@import './transitions.css';
+@import './typography.css';
+@import './text-link.css';
+@import './rich-text.css';
+@import './footer.css';
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  /* Clip horizontal overflow here, not on <body>. Setting overflow-x on <body>
+     implicitly forces overflow-y:auto (CSS orthogonal-axis rule), making <body>
+     a scroll container — which causes Safari to scope position:sticky to <body>
+     instead of the viewport, breaking scroll-pinned heroes entirely. */
+  overflow-x: clip;
+}
+
+body {
+  font-size: 16px;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  hanging-punctuation: first allow-end;
+  background-color: var(--color-mist);
+}
+
+.site-main {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  /* Opaque backdrop so the fixed footer never shows through mid-page
+     (see footer.css garage-door reveal). */
+  background-color: var(--color-mist);
+}
+
+.section,
+section[id] {
+  scroll-margin-top: 0;
+}
+
+[data-module='headline-reveal'] [data-headline-word] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-module='headline-reveal'] [data-headline-word] {
+    opacity: 1;
+  }
+}
+
+/* Lazysizes blur-up effect for in-flight images. */
+.lazyload,
+.lazyloading {
+  filter: blur(40px);
+}
+.lazyloaded {
+  filter: blur(0);
+}
+
+/* Honor prefers-reduced-motion / slow update media. */
+@media screen and (prefers-reduced-motion: reduce), (update: slow) {
+  * {
+    background-attachment: initial !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
