@@ -79,9 +79,6 @@ export default class HeadlineReveal {
   }
 
   /**
-   * SVG tspans cannot reliably transform around their own center. Rebuild
-   * each measured word inside a transformable group without changing layout.
-   *
    * @param {SVGTextElement[]} lines
    * @returns {SVGGElement[]}
    */
@@ -89,20 +86,29 @@ export default class HeadlineReveal {
     return lines.flatMap((line) => {
       const content = line.textContent;
       const matches = [...content.matchAll(/\S+/g)];
+      const firstStart = matches[0].index;
+      const lastMatch = matches.at(-1);
+      const lastEnd = lastMatch.index + lastMatch[0].length - 1;
+      const measuredStart = line.getStartPositionOfChar(firstStart).x;
+      const measuredEnd = line.getEndPositionOfChar(lastEnd).x;
+      const targetWidth = parseFloat(line.getAttribute('textLength'));
+      const widthScale = targetWidth / Math.max(measuredEnd - measuredStart, 1);
 
       return matches.map((match) => {
         const start = match.index;
         const end = start + match[0].length - 1;
         const startPoint = line.getStartPositionOfChar(start);
         const endPoint = line.getEndPositionOfChar(end);
+        const x = (startPoint.x - measuredStart) * widthScale;
+        const width = (endPoint.x - startPoint.x) * widthScale;
         const group = document.createElementNS(SVG_NS, 'g');
         const word = document.createElementNS(SVG_NS, 'text');
 
         word.textContent = match[0];
-        word.setAttribute('x', startPoint.x);
+        word.setAttribute('x', x);
         word.setAttribute('y', line.getAttribute('y'));
         word.setAttribute('font-size', line.dataset.fontSize);
-        word.setAttribute('textLength', Math.max(endPoint.x - startPoint.x, 1));
+        word.setAttribute('textLength', Math.max(width, 1));
         word.setAttribute('lengthAdjust', 'spacingAndGlyphs');
 
         group.append(word);
