@@ -1,0 +1,44 @@
+@import '@splidejs/splide/css/core';
+
+.pizza-carousel {
+  .splide__track,
+  .splide__list,
+  .splide__slide {
+    height: 100%;
+  }
+
+  .splide__track {
+    aspect-ratio: 986 / 862;
+  }
+
+  .splide__pagination {
+    gap: var(--spacing-3xs);
+    margin-top: var(--spacing-sm);
+  }
+
+  .splide__pagination__page {
+    width: 0.75rem;
+    height: 0.75rem;
+    cursor: pointer;
+    border: 0;
+    border-radius: 9999px;
+    background-color: var(--color-dark-red);
+    opacity: 0.8;
+    transition:
+      background-color 150ms,
+      opacity 150ms;
+  }
+
+  .splide__pagination__page.is-active {
+    background-color: var(--color-red);
+    opacity: 1;
+  }
+}
+
+.pizza-lightbox {
+  opacity: 0;
+}
+
+html.has-lightbox {
+  overflow: hidden;
+}

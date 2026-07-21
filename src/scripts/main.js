@@ -11,6 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MediaQueries } from './util/MediaQueries';
 import FooterScrollAnimation from './util/FooterScrollAnimation';
 import PizzaTabs from './modules/pizza-tabs.js';
+import PizzaMedia from './modules/pizza-media.js';
 import Parallax from './modules/parallax.js';
 import HeadlineReveal from './modules/headline-reveal.js';
 import App from './App';
@@ -21,6 +22,7 @@ const DynamicModules = [];
 
 const InitialModules = {
   'pizza-tabs': PizzaTabs,
+  'pizza-media': PizzaMedia,
   parallax: Parallax,
   'headline-reveal': HeadlineReveal,
 };

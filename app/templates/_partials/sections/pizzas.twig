@@ -41,8 +41,10 @@
         ],
       } only %}
     </h2>
-    <div class="pointer-events-none absolute left-[26%] bottom-[100%] w-[25vw] translate-y-[32%] lg:translate-y-[45%] max-w-[160px] -rotate-10 md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]" data-headline-sticker>
-      <img src="{{ vite.url('/images/sticker-frozen-fresh.png') }}" alt="Frozen fresh" class="h-auto w-full" />
+    <div class="pointer-events-none absolute left-[26%] bottom-[100%] w-[25vw] translate-y-[32%] lg:translate-y-[45%] max-w-[160px] -rotate-10 md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]">
+      <div data-headline-sticker>
+        <img src="{{ vite.url('/images/sticker-frozen-fresh.png') }}" alt="Frozen fresh" class="h-auto w-full" />
+      </div>
     </div>
   </div>
 
@@ -102,7 +104,7 @@
         data-tab-panel="{{ market.handle }}"
         {% if not loop.first %}hidden{% endif %}
       >
-        <ul class="mt-sm flex flex-wrap items-center justify-center gap-x-2xl gap-y-md">
+        <ul class="mt-sm flex flex-wrap items-center justify-center gap-x-lg gap-y-xs">
           {% for retailer in market.retailers %}
             {% set logo = retailer.logo.one() ?? null %}
             <li class="flex h-[100px] w-[140px] items-center justify-center md:w-[200px]" data-tab-retailer>

@@ -9,22 +9,23 @@ settings:
   allowUploads: true
   allowedKinds:
     - image
+    - video
   branchLimit: null
   defaultPlacement: end
-  defaultUploadLocationSource: null
+  defaultUploadLocationSource: 'volume:a721f4bf-2498-48e1-a195-19ca20f08c62' # Imagery
   defaultUploadLocationSubpath: null
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
   previewMode: full
   restrictFiles: true
-  restrictLocation: false
+  restrictLocation: true
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: null
+  restrictedLocationSource: 'volume:a721f4bf-2498-48e1-a195-19ca20f08c62' # Imagery
   restrictedLocationSubpath: null
   selectionLabel: null
   showSearchInput: true
-  showSiteMenu: false
+  showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources: '*'

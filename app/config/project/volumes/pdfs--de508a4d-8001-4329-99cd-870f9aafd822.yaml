@@ -1,0 +1,50 @@
+altTranslationKeyFormat: null
+altTranslationMethod: none
+fieldLayouts:
+  40ec092d-9246-4bf3-a8e8-2cfbc8718c3b:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-07-21T18:04:17+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: 70d9a6cb-721a-4cd3-b405-a124996cac3a
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 49aae5b7-6b22-42ba-a38e-5c71568b05c5
+        userCondition: null
+    thumbFieldKey: null
+fs: assets
+handle: pdfs
+name: PDFs
+sortOrder: 3
+subpath: pdfs
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+transformFs: ''
+transformSubpath: ''

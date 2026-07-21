@@ -1,4 +1,4 @@
-dateModified: 1784656005
+dateModified: 1784658082
 elementSources:
   craft\elements\Entry:
     -
@@ -58,6 +58,22 @@ email:
   fromEmail: admin@example.com
   fromName: 'Craft Vite Starter'
   transportType: craft\mail\transportadapters\Sendmail
+fs:
+  assets:
+    hasUrls: true
+    name: Assets
+    settings:
+      cdnUrlPattern: ''
+      customSubfolder: ''
+      disableTransforms: ''
+      makeUploadsPublic: true
+      optimisePrefix: ''
+      optimiseUrlPattern: ''
+      projectSlug: ''
+      securityKey: ''
+      subfolder: staging/
+    type: servd\AssetStorage\AssetsPlatform\Fs
+    url: 'https://butchers-board.files.svdcdn.com'
 meta:
   __names__:
     1ff7f9dc-2b5d-4c4b-953f-4f548e21dd68: Product # Product
@@ -65,15 +81,19 @@ meta:
     4ca0af94-38c0-416c-8219-5cd8ab2b8f43: 'Contact Form' # Contact Form
     9cc1403e-27d1-4423-b0fe-e80fa0d4638c: Retailer # Retailer
     23f997bc-55fb-4b20-82bd-903504b26a15: 'Regional Availability' # Regional Availability
+    265f7f28-cc74-4170-a415-80c01efbb6f5: Logos # Logos
     896eb816-f0a0-4c2e-928b-d07a29246ba4: Images # Images
     2201aef3-fa32-45b9-b08c-b382387c34f7: Products # Products
     8011f8a2-e90c-422c-922a-2a0c736cdfe0: "Butcher's Board" # Butcher's Board
     041897cb-74da-4d6d-8922-cb2de35ceddf: 'US Retailers' # US Retailers
     42269bf6-d8ef-4687-ba9d-7244872a8577: Features # Features
     44746fad-89ea-486e-8bd0-12a14ca31a2a: Logo # Logo
-    ad1d15ad-fe1c-4f22-b214-c5094a425ba4: 'Craft Vite Starter' # Craft Vite Starter
+    a721f4bf-2498-48e1-a195-19ca20f08c62: Imagery # Imagery
+    ad1d15ad-fe1c-4f22-b214-c5094a425ba4: 'Butcher’s Board' # Butcher’s Board
     aea84f82-90c5-46de-b62f-2a37e7702428: Heading # Heading
     b291d081-bf9b-4807-9bfb-0c2077b60ce9: 'Canadian Retailers' # Canadian Retailers
+    c9de3ad8-9983-4d6e-b4e6-e7d9d8f03307: PDF # PDF
+    de508a4d-8001-4329-99cd-870f9aafd822: PDFs # PDFs
     ee3f361c-9779-4901-b6ed-ba424bc17e8e: Body # Body
     f8d2a2eb-5061-42ec-a15c-5ef226d4f538: Image # Image
 plugins:
@@ -86,7 +106,7 @@ plugins:
     enabled: true
     schemaVersion: 1.0.0
   imager-x:
-    edition: lite
+    edition: pro
     enabled: true
     licenseKey: O3RMBU32NBSXU980NPDQVAI0
     schemaVersion: 4.0.0

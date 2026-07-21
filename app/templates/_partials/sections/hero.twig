@@ -2,10 +2,10 @@
 
 <section class="relative overflow-hidden bg-brown">
   <img
-    src="{{ vite.url('/images/texture-02.jpg') }}"
+    data-src="{{ vite.url('/images/texture-02.jpg') }}"
     alt=""
     aria-hidden="true"
-    class="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
+    class="lazyload pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
   />
 
   <div class="relative">
@@ -22,19 +22,19 @@
 
     <div class="relative mt-xl md:mt-2xl">
       <div class="pointer-events-none absolute -top-xl left-[16%] z-10 w-[25vw] max-w-[160px] -rotate-10 md:-top-3xl md:left-[18%] md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]" data-headline-sticker>
-        <img src="{{ vite.url('/images/sticker-no-preservatives.png') }}" alt="No artificial preservatives" class="h-auto w-full" />
+        <img data-src="{{ vite.url('/images/sticker-no-preservatives.png') }}" alt="No artificial preservatives" class="lazyload h-auto w-full" />
       </div>
 
       <div class="pointer-events-none absolute -top-sm left-[56%] md:left-[52%] lg:left-[48%] z-10 w-[25vw] max-w-[160px] rotate-10 md:-top-md md:w-[22vw] md:max-w-[180px] lg:w-[18vw] lg:max-w-[256px]" data-headline-sticker>
-        <img src="{{ vite.url('/images/sticker-no-nitrates.png') }}" alt="No nitrates or nitrites added" class="h-auto w-full" />
+        <img data-src="{{ vite.url('/images/sticker-no-nitrates.png') }}" alt="No nitrates or nitrites added" class="lazyload h-auto w-full" />
       </div>
 
       <div class="relative aspect-square w-full overflow-hidden md:aspect-[16/7]" data-module="parallax">
         <img
-          src="{{ vite.url('/images/pizza-bg.jpg') }}"
+          data-src="{{ vite.url('/images/pizza-bg.jpg') }}"
           alt="Close-up of a pepperoni pizza"
           data-parallax-media
-          class="absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover"
+          class="lazyload absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover"
         />
       </div>
     </div>

@@ -5,5 +5,5 @@ hasUrls: true
 language: en-US
 name: "Butcher's Board"
 primary: true
-siteGroup: ad1d15ad-fe1c-4f22-b214-c5094a425ba4 # Craft Vite Starter
+siteGroup: ad1d15ad-fe1c-4f22-b214-c5094a425ba4 # Butcher’s Board
 sortOrder: 1

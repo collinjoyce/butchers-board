@@ -56,6 +56,10 @@ export default class PizzaTabs {
     this.panels.forEach((panel) => {
       panel.toggleAttribute('hidden', panel.dataset.tabPanel !== handle);
     });
+
+    this.section
+      .querySelectorAll('[data-module="pizza-media"]')
+      .forEach(card => card.dispatchEvent(new CustomEvent('pizza-media:refresh')));
   }
 
   /**

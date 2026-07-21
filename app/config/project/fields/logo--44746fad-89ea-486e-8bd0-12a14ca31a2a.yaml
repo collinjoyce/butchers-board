@@ -10,20 +10,20 @@ settings:
   allowedKinds: null
   branchLimit: null
   defaultPlacement: end
-  defaultUploadLocationSource: null
+  defaultUploadLocationSource: 'volume:a721f4bf-2498-48e1-a195-19ca20f08c62' # Imagery
   defaultUploadLocationSubpath: null
   maintainHierarchy: false
   maxRelations: 1
   minRelations: null
   previewMode: full
   restrictFiles: false
-  restrictLocation: false
+  restrictLocation: true
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: null
+  restrictedLocationSource: 'volume:265f7f28-cc74-4170-a415-80c01efbb6f5' # Logos
   restrictedLocationSubpath: null
   selectionLabel: 'Add a logo'
   showSearchInput: true
-  showSiteMenu: false
+  showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources: '*'

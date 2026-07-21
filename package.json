@@ -38,10 +38,11 @@
     "not kaios >= 2.5"
   ],
   "dependencies": {
+    "@splidejs/splide": "^4.1.4",
     "@swup/a11y-plugin": "^5.0.0",
     "@swup/head-plugin": "^2.3.1",
-    "@swup/scroll-plugin": "^4.0.0",
     "@swup/scripts-plugin": "^2.0.0",
+    "@swup/scroll-plugin": "^4.0.0",
     "focus-trap": "^7.6.6",
     "gsap": "^3.13.0",
     "lazysizes": "^5.3.2",

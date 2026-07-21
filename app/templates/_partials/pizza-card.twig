@@ -1,24 +1,31 @@
-{#
-  Single pizza variety card (mist panel inside the Our Pizzas tabs).
-
-  Params: pizza — a `products` section entry
-    (title, description, features table, images)
-#}
-
-{% set image = pizza.images.one() ?? null %}
+{% set images = pizza.images.all() %}
 {% set featureRows = pizza.features ?? [] %}
+{% set nutritionFacts = pizza.nutritionFacts.one() ?? null %}
+{% set ingredients = pizza.ingredients.one() ?? null %}
+{% set lightboxId = 'pizza-lightbox-' ~ pizza.id %}
 
-<article class="flex h-full flex-col items-center rounded-card bg-mist px-md pb-4xl pt-2xl text-dark-red">
+<article class="flex h-full flex-col items-center rounded-card bg-mist px-md pb-4xl pt-2xl text-dark-red" data-module="pizza-media">
   <div class="w-full max-w-[500px]">
-    {% if image %}
-      {% include '_partials/asset-media' with {
-        asset: image,
-        options: {
-          sizes: '(min-width: 784px) 45vw, 90vw',
-          defaultWidth: 1000,
-          widths: [480, 640, 800, 1000],
-        },
-      } only %}
+    {% if images|length %}
+      <div class="splide pizza-carousel" data-pizza-carousel aria-label="{{ pizza.title }} images">
+        <div class="splide__track">
+          <ul class="splide__list">
+            {% for image in images %}
+              <li class="splide__slide">
+                {% include '_partials/asset-media' with {
+                  asset: image,
+                  options: {
+                    class: 'h-full w-full object-contain',
+                    sizes: '(min-width: 784px) 45vw, 90vw',
+                    defaultWidth: 1000,
+                    widths: [480, 640, 800, 1000],
+                  },
+                } only %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
     {% else %}
       {% include '_partials/image-placeholder' with {
         text: pizza.title ~ ' box',
@@ -49,18 +56,61 @@
       </div>
     {% endif %}
 
-    <div class="flex gap-sm items-center">
-      {# {% if pizza.nutritionFacts|length %} #}
-        <div class="mt-lg">
-          <h4 class="type-eyebrow-sm underline text-red hover:text-dark-red transition-colors duration-150 cursor-pointer">Nutrition Facts</h4>
-        </div>
-      {# {% endif %} #}
+    {% if nutritionFacts or ingredients %}
+      <div class="mt-lg flex items-center gap-sm">
+        {% if nutritionFacts %}
+          <button
+            type="button"
+            class="type-eyebrow-sm cursor-pointer text-red underline transition-colors duration-150 hover:text-dark-red"
+            aria-haspopup="dialog"
+            aria-controls="{{ lightboxId }}"
+            data-lightbox-trigger
+            data-lightbox-src="{{ nutritionFacts.url }}"
+            data-lightbox-alt="{{ nutritionFacts.alt|default(nutritionFacts.title) }}"
+          >Nutrition Facts</button>
+        {% endif %}
 
-      {# {% if pizza.nutritionFacts|length %} #}
-        <div class="mt-lg">
-          <h4 class="type-eyebrow-sm underline text-red hover:text-dark-red transition-colors duration-150 cursor-pointer">Ingredients</h4>
-        </div>
-      {# {% endif %} #}
-    </div>
+        {% if ingredients %}
+          <button
+            type="button"
+            class="type-eyebrow-sm cursor-pointer text-red underline transition-colors duration-150 hover:text-dark-red"
+            aria-haspopup="dialog"
+            aria-controls="{{ lightboxId }}"
+            data-lightbox-trigger
+            data-lightbox-src="{{ ingredients.url }}"
+            data-lightbox-alt="{{ ingredients.alt|default(ingredients.title) }}"
+          >Ingredients</button>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
+
+  {% if nutritionFacts or ingredients %}
+    <dialog
+      id="{{ lightboxId }}"
+      class="pizza-lightbox fixed inset-0 m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 text-white backdrop:bg-transparent backdrop-blur-md"
+      aria-labelledby="{{ lightboxId }}-title"
+      data-lightbox
+    >
+      <h2 id="{{ lightboxId }}-title" class="sr-only">{{ pizza.title }} product information</h2>
+      <button
+        type="button"
+        class="absolute inset-0 cursor-default bg-black/50"
+        aria-label="Close lightbox"
+        tabindex="-1"
+        data-lightbox-close
+      ></button>
+      <div class="pointer-events-none relative flex h-full items-center justify-center px-[10vw] py-[10vh]">
+        <img class="max-h-full max-w-full object-contain" alt="" data-lightbox-image>
+      </div>
+      <button
+        type="button"
+        class="absolute top-[20px] right-[20px] flex h-11 w-11 cursor-pointer items-center justify-center text-white [&_svg]:h-5 [&_svg]:w-5"
+        aria-label="Close lightbox"
+        data-lightbox-close
+      >
+        {% include '_svgs/icon-close.twig' %}
+      </button>
+    </dialog>
+  {% endif %}
 </article>

@@ -1,15 +1,13 @@
 columnSuffix: null
-handle: image
+handle: pdf
 instructions: null
-name: Image
+name: PDF
 searchable: false
 settings:
   allowSelfRelations: false
   allowSubfolders: false
   allowUploads: true
-  allowedKinds:
-    - image
-    - video
+  allowedKinds: null
   branchLimit: null
   defaultPlacement: end
   defaultUploadLocationSource: 'volume:a721f4bf-2498-48e1-a195-19ca20f08c62' # Imagery
@@ -18,20 +16,20 @@ settings:
   maxRelations: 1
   minRelations: null
   previewMode: full
-  restrictFiles: true
+  restrictFiles: false
   restrictLocation: true
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: 'volume:a721f4bf-2498-48e1-a195-19ca20f08c62' # Imagery
+  restrictedLocationSource: 'volume:de508a4d-8001-4329-99cd-870f9aafd822' # PDFs
   restrictedLocationSubpath: null
   selectionLabel: null
   showSearchInput: true
-  showSiteMenu: true
+  showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources: '*'
   targetSiteId: null
   validateRelatedElements: false
-  viewMode: thumbs
+  viewMode: list
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Assets

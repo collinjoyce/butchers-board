@@ -131,8 +131,8 @@
     {% if mobileIsSvg or desktopIsSvg %}
       {% if mobileIsSvg %}
         <img
-          class="{{ mobileOnlyClass }}"
-          src="{{ mobile.url }}"
+          class="{{ mobileOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          {% if lazyload %}data-src="{{ mobile.url }}"{% else %}src="{{ mobile.url }}"{% endif %}
           loading="{{ loading }}"
           {{- altAttr|raw -}}
         >
@@ -144,10 +144,16 @@
         {% set mobTransform = craft.imagerx.transformImage(mobile, { width: mobileWidths|last }|merge(transformOpts)) %}
         {% set mobSrcset = craft.imagerx.transformImage(mobile, mobWidthParams, transformOpts) %}
         <img
-          class="{{ mobileOnlyClass }}"
-          src="{{ mobTransform.url }}"
-          srcset="{{ craft.imagerx.srcset(mobSrcset) }}"
-          sizes="{{ sizes }}"
+          class="{{ mobileOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          {% if lazyload %}
+            data-src="{{ mobTransform.url }}"
+            data-srcset="{{ craft.imagerx.srcset(mobSrcset) }}"
+            data-sizes="{{ sizes }}"
+          {% else %}
+            src="{{ mobTransform.url }}"
+            srcset="{{ craft.imagerx.srcset(mobSrcset) }}"
+            sizes="{{ sizes }}"
+          {% endif %}
           width="{{ mobTransform.width }}"
           height="{{ mobTransform.height }}"
           loading="{{ loading }}"
@@ -157,8 +163,8 @@
 
       {% if desktopIsSvg %}
         <img
-          class="{{ desktopOnlyClass }}"
-          src="{{ asset.url }}"
+          class="{{ desktopOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          {% if lazyload %}data-src="{{ asset.url }}"{% else %}src="{{ asset.url }}"{% endif %}
           loading="{{ loading }}"
           {{- altAttr|raw -}}
         >
@@ -170,10 +176,16 @@
         {% set deskTransform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
         {% set deskSrcset = craft.imagerx.transformImage(asset, deskWidthParams, transformOpts) %}
         <img
-          class="{{ desktopOnlyClass }}"
-          src="{{ deskTransform.url }}"
-          srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
-          sizes="{{ sizes }}"
+          class="{{ desktopOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          {% if lazyload %}
+            data-src="{{ deskTransform.url }}"
+            data-srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
+            data-sizes="{{ sizes }}"
+          {% else %}
+            src="{{ deskTransform.url }}"
+            srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
+            sizes="{{ sizes }}"
+          {% endif %}
           width="{{ deskTransform.width }}"
           height="{{ deskTransform.height }}"
           loading="{{ loading }}"
@@ -229,8 +241,8 @@
     {% set isSvg = asset.extension|lower == 'svg' %}
     {% if isSvg %}
       <img
-        class="{{ class }}"
-        src="{{ asset.url }}"
+        class="{{ class }}{{ lazyload ? ' lazyload' : '' }}"
+        {% if lazyload %}data-src="{{ asset.url }}"{% else %}src="{{ asset.url }}"{% endif %}
         loading="{{ loading }}"
         {{- altAttr|raw -}}
       >
