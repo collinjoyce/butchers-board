@@ -1,4 +1,4 @@
-dateModified: 1784600899
+dateModified: 1784656005
 elementSources:
   craft\elements\Entry:
     -
@@ -106,7 +106,8 @@ plugins:
 system:
   edition: solo
   live: true
-  name: 'Craft Vite Starter'
+  name: "Butcher's Board"
+  retryDuration: null
   schemaVersion: 5.10.0.0
   timeZone: America/Los_Angeles
 users:

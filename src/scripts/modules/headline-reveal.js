@@ -3,14 +3,6 @@ import gsap from 'gsap';
 import { MediaQueries } from '../util/MediaQueries';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const ANIMATION = {
-  opacity: 1,
-  scale: 1,
-  duration: 0.3,
-  delay: 0.5,
-  stagger: 0.16,
-  ease: 'power2.out',
-};
 
 export default class HeadlineReveal {
   /**
@@ -18,8 +10,16 @@ export default class HeadlineReveal {
    */
   constructor(element) {
     this.words = [...element.querySelectorAll('[data-headline-word]')];
+    this.svgLines = [...element.querySelectorAll('[data-headline-line]')];
+    this.stickers = [
+      ...(element.closest('section')?.querySelectorAll('[data-headline-sticker]') ??
+        []),
+    ];
 
-    if (!this.words.length || MediaQueries.MOTION_QUERY.matches) {
+    if (
+      (!this.words.length && !this.svgLines.length) ||
+      MediaQueries.MOTION_QUERY.matches
+    ) {
       return;
     }
 
@@ -34,8 +34,8 @@ export default class HeadlineReveal {
    * @param {HTMLElement} element
    */
   init(element) {
-    if (this.words[0] instanceof SVGElement) {
-      this.words = this.createSvgWordGroups(this.words);
+    if (this.svgLines.length) {
+      this.words = this.createSvgWordGroups(this.svgLines);
     }
 
     gsap.set(this.words, {
@@ -44,41 +44,72 @@ export default class HeadlineReveal {
       transformOrigin: '50% 50%',
     });
 
-    gsap.to(this.words, {
-      ...ANIMATION,
+    gsap.set(this.stickers, {
+      opacity: 0,
+      scale: 0.9,
+      transformOrigin: '50% 50%',
+    });
+
+    const timeline = gsap.timeline({
+      delay: 0.5,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
         once: true,
       },
     });
+
+    timeline.to(this.words, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      stagger: 0.16,
+      ease: 'power2.out',
+    });
+
+    if (this.stickers.length) {
+      timeline.to(this.stickers, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.28,
+        stagger: 0.1,
+        ease: 'power2.out',
+      });
+    }
   }
 
   /**
    * SVG tspans cannot reliably transform around their own center. Rebuild
    * each measured word inside a transformable group without changing layout.
    *
-   * @param {SVGElement[]} sources
+   * @param {SVGTextElement[]} lines
    * @returns {SVGGElement[]}
    */
-  createSvgWordGroups(sources) {
-    return sources.map((source) => {
-      const bounds = source.getBBox();
-      const line = source.parentElement;
-      const group = document.createElementNS(SVG_NS, 'g');
-      const word = document.createElementNS(SVG_NS, 'text');
+  createSvgWordGroups(lines) {
+    return lines.flatMap((line) => {
+      const content = line.textContent;
+      const matches = [...content.matchAll(/\S+/g)];
 
-      word.textContent = source.textContent.trim();
-      word.setAttribute('x', bounds.x);
-      word.setAttribute('y', line.getAttribute('y'));
-      word.setAttribute('font-size', source.dataset.fontSize);
-      word.setAttribute('textLength', bounds.width);
-      word.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+      return matches.map((match) => {
+        const start = match.index;
+        const end = start + match[0].length - 1;
+        const startPoint = line.getStartPositionOfChar(start);
+        const endPoint = line.getEndPositionOfChar(end);
+        const group = document.createElementNS(SVG_NS, 'g');
+        const word = document.createElementNS(SVG_NS, 'text');
 
-      group.append(word);
-      line.parentElement.append(group);
+        word.textContent = match[0];
+        word.setAttribute('x', startPoint.x);
+        word.setAttribute('y', line.getAttribute('y'));
+        word.setAttribute('font-size', line.dataset.fontSize);
+        word.setAttribute('textLength', Math.max(endPoint.x - startPoint.x, 1));
+        word.setAttribute('lengthAdjust', 'spacingAndGlyphs');
 
-      return group;
+        group.append(word);
+        line.parentElement.append(group);
+
+        return group;
+      });
     });
   }
 }

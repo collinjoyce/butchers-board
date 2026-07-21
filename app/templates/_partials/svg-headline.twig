@@ -22,11 +22,9 @@
         font-size="{{ line.fontSize }}"
         textLength="1440"
         lengthAdjust="{{ line.lengthAdjust|default('spacingAndGlyphs') }}"
-      >
-        {% for word in line.text|split(' ') %}
-          <tspan data-headline-word data-font-size="{{ line.fontSize }}" font-size="{{ line.fontSize }}">{{ word }}{% if not loop.last %} {% endif %}</tspan>
-        {% endfor %}
-      </text>
+        data-headline-line
+        data-font-size="{{ line.fontSize }}"
+      >{{ line.text }}</text>
     {% endfor %}
   </svg>
 </div>

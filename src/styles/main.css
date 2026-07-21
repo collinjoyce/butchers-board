@@ -41,12 +41,16 @@ section[id] {
   scroll-margin-top: 0;
 }
 
-[data-module='headline-reveal'] [data-headline-word] {
+[data-module='headline-reveal'] [data-headline-word],
+[data-module='headline-reveal'] [data-headline-line],
+[data-headline-sticker] {
   opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-module='headline-reveal'] [data-headline-word] {
+  [data-module='headline-reveal'] [data-headline-word],
+  [data-module='headline-reveal'] [data-headline-line],
+  [data-headline-sticker] {
     opacity: 1;
   }
 }
