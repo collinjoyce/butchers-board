@@ -1,0 +1,25 @@
+defaultPlacement: beginning
+enableVersioning: true
+entryTypes:
+  -
+    uid: 75f49bcb-84a9-4038-a0ae-155ca8783e82 # Legal
+handle: legalMisc
+maxAuthors: 1
+minAuthors: 1
+name: Legal/Misc.
+previewTargets:
+  -
+    label: 'Primary entry page'
+    refresh: '1'
+    urlFormat: '{url}'
+propagationMethod: all
+siteSettings:
+  8011f8a2-e90c-422c-922a-2a0c736cdfe0: # Butcher's Board
+    enabledByDefault: true
+    hasUrls: true
+    template: legal-misc/_entry.twig
+    uriFormat: '{slug}'
+structure:
+  maxLevels: 1
+  uid: a897b587-594d-4ee6-98e6-292050a59f67
+type: structure

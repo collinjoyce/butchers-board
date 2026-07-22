@@ -5,6 +5,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
 
@@ -13,7 +17,7 @@
     line-height: 1.45;
 
     a {
-      @apply  underline decoration-current transition-colors hover:decoration-transparent underline-offset-4;
+      @apply  underline decoration-current transition-colors hover:decoration-transparent underline-offset-4 text-red;
     }
   }
 
@@ -36,19 +40,19 @@
   }
 
   h3 {
-    @apply type-eyebrow;
+    @apply type-h4;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
   }
 
   h4 {
-    @apply type-body font-bold;
+    @apply type-eyebrow;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
   }
 
-  h5 {
-    @apply type-body-small font-bold;
+  h5, h6 {
+    @apply type-eyebrow-sm;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
   }

@@ -65,6 +65,10 @@
   --spacing-hero-top-md: 18rem; /* clears the overlaid header — 240px @md */
   --spacing-hero-top-lg: 22rem; /* clears the overlaid header — 240px @lg */
 
+  --spacing-page-top: 14rem;
+  --spacing-page-top-md: 18rem;
+  --spacing-page-top-lg: 20rem;
+
   /* ---------------- Type scale ----------------------------------------------
      Type sizes live directly on the `type-*` utilities in `typography.css`,
      hardcoded per breakpoint (no fluid clamps). */
@@ -85,7 +89,8 @@
   /* ---------------- Misc ---------------------------------------------------- */
   --leading-snug: 1;
   --grid-col-gap: 1rem;
-  --max-w-prose: 38ch;
+  --container-prose: 38ch;
+  --container-legal: 86ch;
 }
 
 /* Desktop spacing steps — overrides the token values emitted from @theme.
