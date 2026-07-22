@@ -1,16 +1,14 @@
-{#
-  About — dark red band with eyebrow + big mono statement.
-
-  Params: about { eyebrow, paragraphs: [] }
-#}
-
+{% if entry.heading or entry.intro %}
 <section id="about" class="bg-dark-red text-white">
   <div class="container py-5xl text-center md:py-6xl">
-    <p class="type-eyebrow">{{ about.eyebrow }}</p>
-    <div class="mx-auto mt-xl max-w-[1104px]">
-      {% for paragraph in about.paragraphs %}
-        <p class="type-body-mono-big {% if not loop.first %}mt-md{% endif %}">{{ paragraph }}</p>
-      {% endfor %}
-    </div>
+    {% if entry.heading %}
+      <p class="type-eyebrow">{{ entry.heading }}</p>
+    {% endif %}
+    {% if entry.intro %}
+      <div class="mx-auto mt-md max-w-[56ch] type-body-mono-big text-pretty">
+        {{ entry.intro|typogrify|raw }}
+      </div>
+    {% endif %}
   </div>
 </section>
+{% endif %}

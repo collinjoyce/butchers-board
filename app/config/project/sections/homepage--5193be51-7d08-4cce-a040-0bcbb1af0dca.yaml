@@ -1,0 +1,22 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  -
+    uid: ce5acc00-55ef-4905-a5b2-44049afb32d4 # Homepage
+handle: homepage
+maxAuthors: 1
+minAuthors: 1
+name: Homepage
+previewTargets:
+  -
+    label: 'Primary entry page'
+    refresh: '1'
+    urlFormat: '{url}'
+propagationMethod: all
+siteSettings:
+  8011f8a2-e90c-422c-922a-2a0c736cdfe0: # Butcher's Board
+    enabledByDefault: true
+    hasUrls: true
+    template: index.twig
+    uriFormat: __home__
+type: single

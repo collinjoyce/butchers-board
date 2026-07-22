@@ -1,0 +1,80 @@
+allowLineBreaksInTitles: false
+color: null
+description: null
+fieldLayouts:
+  c9d6d346-b5cb-4a69-b89b-6bbf9923b37b:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2026-07-22T18:29:09+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: aea84f82-90c5-46de-b62f-2a37e7702428 # Heading
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5e9e7ba7-f4d6-42e5-ae07-da1887e99c1a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-07-22T18:29:09+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: ee3f361c-9779-4901-b6ed-ba424bc17e8e # Body
+            handle: intro
+            instructions: null
+            label: Intro
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7e4c0551-e87a-4802-9c04-efcd7bb8af56
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-07-22T18:29:09+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: bc8e933e-d633-488c-b51c-32bb22f1ce66
+            userCondition: null
+          -
+            dateAdded: '2026-07-22T18:29:09+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: ee3f361c-9779-4901-b6ed-ba424bc17e8e # Body
+            handle: formIntro
+            instructions: null
+            label: 'Contact Form Intro'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d562e5e1-c172-4120-bae9-d6d048ee4168
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 46d13181-b940-41cb-a012-4afed69a61f4
+        userCondition: null
+    thumbFieldKey: null
+handle: homepage
+hasTitleField: false
+icon: house
+name: Homepage
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+uiLabelFormat: '{title}'

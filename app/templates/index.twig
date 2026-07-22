@@ -15,17 +15,6 @@
   image: null,
 } %}
 
-{% set about = {
-  eyebrow: "Better is the Butcher's way.",
-  paragraphs: [
-    "Around here, we don't believe in skimpy slices or filler ingredients.
-      Butcher's Board makes butcher-quality frozen pizza with thick-cut meats,
-      crisp gluten-free crust, dairy-free cheese worth melting for—and none of
-      the artificial stuff. More bite. More topping. More of what's best.",
-    "That's our pledge.",
-  ],
-} %}
-
 {% set contact = {
   headline: 'Contact',
   text: "Have a question? We'd love to hear from you. Whether you're looking
@@ -35,7 +24,7 @@
 
 {% block content %}
   {% include '_partials/sections/hero' with { hero: hero } only %}
-  {% include '_partials/sections/about' with { about: about } only %}
+  {% include '_partials/sections/about' %}
   {% include '_partials/sections/pizzas' %}
-  {% include '_partials/sections/contact' with { contact: contact } only %}
+  {% include '_partials/sections/contact' %}
 {% endblock %}
