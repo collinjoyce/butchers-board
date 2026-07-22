@@ -1,5 +1,5 @@
 <section id="contact" class="bg-mist text-dark-red">
-  <div class="overflow-hidden py-3xl pb-xl lg:py-3xl">
+  <div class="overflow-hidden pt-3xl pb-md lg:pt-2xl lg:pb-none">
     <h2 class="type-headline-xl whitespace-nowrap text-center text-red" data-module="headline-reveal">
       {% for word in contact.headline|split(' ') %}
         <span class="inline-block" data-headline-word>{{ word }}</span>{% if not loop.last %} {% endif %}
@@ -8,7 +8,7 @@
   </div>
 
   <div>
-    <div class="container grid grid-cols-2 gap-x-sm pb-4xl lg:pt-2xl md:grid-cols-12">
+    <div class="container grid grid-cols-2 gap-x-sm pb-4xl md:pt-md lg:pt-lg md:grid-cols-12">
       <div class="col-span-2 md:col-span-5">
         <p class="type-body text-center md:text-left max-w-[470px] mx-auto md:mx-0">{{ contact.text }}</p>
       </div>
