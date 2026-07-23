@@ -4,7 +4,7 @@
   "type": "project",
   "require": {
     "craftcms/ckeditor": "^5.6.1",
-    "craftcms/cms": "^5.10.11",
+    "craftcms/cms": "^5.10.12",
     "nystudio107/craft-seomatic": "^5.1.21",
     "nystudio107/craft-typogrify": "^5.0.3",
     "servd/craft-asset-storage": "^4.2.6",
