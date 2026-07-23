@@ -9,6 +9,28 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2026-07-23T15:22:04+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: f8d2a2eb-5061-42ec-a15c-5ef226d4f538 # Image
+            handle: null
+            instructions: null
+            label: 'Pizza Background'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 296a3f93-6f03-4ee7-94ff-ba1070f4d33d
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-07-23T15:22:04+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 1aee0fba-020c-42a2-a8dd-9e8c62111cb5
+            userCondition: null
+          -
             dateAdded: '2026-07-22T18:29:09+00:00'
             editCondition: null
             elementCondition: null

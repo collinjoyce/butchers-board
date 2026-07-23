@@ -23,7 +23,7 @@
 } %}
 
 {% block content %}
-  {% include '_partials/sections/hero' with { hero: hero } only %}
+  {% include '_partials/sections/hero' with { hero: hero, entry: entry } only %}
   {% include '_partials/sections/about' %}
   {% include '_partials/sections/pizzas' %}
   {% include '_partials/sections/contact' %}

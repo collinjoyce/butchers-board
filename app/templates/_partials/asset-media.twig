@@ -58,7 +58,7 @@
 
   {% if mobile and mobile.kind == 'video' and asset.kind != 'video' %}
     <video
-      class="{{ mobileOnlyClass }}"
+      class="{{ mobileOnlyClass }} {{ extraClasses ?? '' }}"
       src="{{ mobile.url }}"
       autoplay
       muted
@@ -69,12 +69,12 @@
     ></video>
     {% include '_partials/asset-media.twig' with {
       asset: asset,
-      options: options|merge({ class: desktopOnlyClass, useMobileOverride: false }),
+      options: options|merge({ class: desktopOnlyClass, extraClasses: extraClasses ?? '', useMobileOverride: false }),
     } only %}
   {% elseif asset.kind == 'video' %}
     {% if mobile and mobile.kind == 'video' %}
       <video
-        class="{{ mobileOnlyClass }}"
+        class="{{ mobileOnlyClass }} {{ extraClasses ?? '' }}"
         src="{{ mobile.url }}"
         autoplay
         muted
@@ -84,7 +84,7 @@
         {{- ariaAttr|raw -}}
       ></video>
       <video
-        class="{{ desktopOnlyClass }}"
+        class="{{ desktopOnlyClass }} {{ extraClasses ?? '' }}"
         src="{{ asset.url }}"
         autoplay
         muted
@@ -103,7 +103,7 @@
         }),
       } only %}
       <video
-        class="{{ desktopOnlyClass }}"
+        class="{{ desktopOnlyClass }} {{ extraClasses ?? '' }}"
         src="{{ asset.url }}"
         autoplay
         muted
@@ -114,7 +114,7 @@
       ></video>
     {% else %}
       <video
-        class="{{ class }}"
+        class="{{ class }} {{ extraClasses ?? '' }}"
         src="{{ asset.url }}"
         autoplay
         muted
@@ -131,7 +131,7 @@
     {% if mobileIsSvg or desktopIsSvg %}
       {% if mobileIsSvg %}
         <img
-          class="{{ mobileOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          class="{{ mobileOnlyClass }} {{ extraClasses ?? '' }}{{ lazyload ? ' lazyload' : '' }}"
           {% if lazyload %}data-src="{{ mobile.url }}"{% else %}src="{{ mobile.url }}"{% endif %}
           loading="{{ loading }}"
           {{- altAttr|raw -}}
@@ -144,7 +144,7 @@
         {% set mobTransform = craft.imagerx.transformImage(mobile, { width: mobileWidths|last }|merge(transformOpts)) %}
         {% set mobSrcset = craft.imagerx.transformImage(mobile, mobWidthParams, transformOpts) %}
         <img
-          class="{{ mobileOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          class="{{ mobileOnlyClass }} {{ extraClasses ?? '' }}{{ lazyload ? ' lazyload' : '' }}"
           {% if lazyload %}
             data-src="{{ mobTransform.url }}"
             data-srcset="{{ craft.imagerx.srcset(mobSrcset) }}"
@@ -163,7 +163,7 @@
 
       {% if desktopIsSvg %}
         <img
-          class="{{ desktopOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          class="{{ desktopOnlyClass }} {{ extraClasses ?? '' }}{{ lazyload ? ' lazyload' : '' }}"
           {% if lazyload %}data-src="{{ asset.url }}"{% else %}src="{{ asset.url }}"{% endif %}
           loading="{{ loading }}"
           {{- altAttr|raw -}}
@@ -176,7 +176,7 @@
         {% set deskTransform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
         {% set deskSrcset = craft.imagerx.transformImage(asset, deskWidthParams, transformOpts) %}
         <img
-          class="{{ desktopOnlyClass }}{{ lazyload ? ' lazyload' : '' }}"
+          class="{{ desktopOnlyClass }} {{ extraClasses ?? '' }}{{ lazyload ? ' lazyload' : '' }}"
           {% if lazyload %}
             data-src="{{ deskTransform.url }}"
             data-srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
@@ -211,7 +211,7 @@
           <source media="{{ mobileQuery }}" data-srcset="{{ craft.imagerx.srcset(mobSrcset) }}" type="image/{{ format }}">
           <source data-srcset="{{ craft.imagerx.srcset(deskSrcset) }}" type="image/{{ format }}">
           <img
-            class="{{ class }} lazyload"
+            class="{{ class }} {{ extraClasses ?? '' }} lazyload"
             src="{{ deskLqip.url }}"
             data-sizes="{{ sizes }}"
             width="{{ deskTransform.width }}"
@@ -225,7 +225,7 @@
           <source media="{{ mobileQuery }}" srcset="{{ craft.imagerx.srcset(mobSrcset) }}" type="image/{{ format }}">
           <source srcset="{{ craft.imagerx.srcset(deskSrcset) }}" type="image/{{ format }}">
           <img
-            class="{{ class }}"
+            class="{{ class }} {{ extraClasses ?? '' }}"
             src="{{ deskTransform.url }}"
             srcset="{{ craft.imagerx.srcset(deskSrcset) }}"
             sizes="{{ sizes }}"
@@ -241,7 +241,7 @@
     {% set isSvg = asset.extension|lower == 'svg' %}
     {% if isSvg %}
       <img
-        class="{{ class }}{{ lazyload ? ' lazyload' : '' }}"
+        class="{{ class }} {{ extraClasses ?? '' }}{{ lazyload ? ' lazyload' : '' }}"
         {% if lazyload %}data-src="{{ asset.url }}"{% else %}src="{{ asset.url }}"{% endif %}
         loading="{{ loading }}"
         {{- altAttr|raw -}}
@@ -251,7 +251,7 @@
       {% set transform = craft.imagerx.transformImage(asset, { width: defaultWidth }|merge(transformOpts)) %}
       {% if lazyMode == 'single' %}
         <img
-          class="{{ class }} lazyload"
+          class="{{ class }} {{ extraClasses ?? '' }} lazyload"
           src="{{ lqip.url }}"
           data-src="{{ transform.url }}"
           width="{{ transform.width }}"
@@ -266,7 +266,7 @@
         {% endfor %}
         {% set srcset = craft.imagerx.transformImage(asset, widthParams, transformOpts) %}
         <img
-          class="{{ class }} lazyload"
+          class="{{ class }} {{ extraClasses ?? '' }} lazyload"
           src="{{ lqip.url }}"
           data-srcset="{{ craft.imagerx.srcset(srcset) }}"
           data-sizes="{{ sizes }}"
@@ -284,7 +284,7 @@
       {% endfor %}
       {% set srcset = craft.imagerx.transformImage(asset, widthParams, transformOpts) %}
       <img
-        class="{{ class }}"
+        class="{{ class }} {{ extraClasses ?? '' }}"
         src="{{ transform.url }}"
         srcset="{{ craft.imagerx.srcset(srcset) }}"
         sizes="{{ sizes }}"
