@@ -5,7 +5,7 @@
       <p class="type-eyebrow">{{ entry.heading }}</p>
     {% endif %}
     {% if entry.intro %}
-      <div class="mx-auto mt-md max-w-[56ch] type-body-mono-big text-pretty">
+      <div class="mx-auto mt-md max-w-[56ch] type-body-mono-big text-pretty [&_p]:mb-md [&_p]:last:mb-0">
         {{ entry.intro|typogrify|raw }}
       </div>
     {% endif %}
