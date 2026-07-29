@@ -112,6 +112,7 @@
                 {% include '_partials/asset-media' with {
                   asset: logo,
                   options: { sizes: '200px', defaultWidth: 400, widths: [200, 400] },
+                  extraClasses: 'lazyload-no-blur',
                 } only %}
               {% else %}
                 {% include '_partials/image-placeholder' with {

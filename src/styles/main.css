@@ -60,6 +60,15 @@ section[id] {
 .lazyload,
 .lazyloading {
   filter: blur(40px);
+
+  &.lazyload-no-blur {
+    filter: none;
+    opacity: 0;
+
+    &.lazyloaded {
+      opacity: 1;
+    }
+  }
 }
 .lazyloaded {
   filter: blur(0);
