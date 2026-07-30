@@ -35,8 +35,12 @@
               {% include '_svgs/icon-instagram.twig' %}
             </a>
           </li>
-          <li><a href="/privacy-policy" class="no-underline hover:underline">Privacy Policy</a></li>
-          <li><a href="/terms-of-service" class="no-underline hover:underline">Terms of Service</a></li>
+          {% if craft.entries.title('Privacy Policy')|length %}
+            <li><a href="/privacy-policy" class="no-underline hover:underline">Privacy Policy</a></li>
+          {% endif %}
+          {% if craft.entries.title('Terms of Service')|length %}
+            <li><a href="/terms-of-service" class="no-underline hover:underline">Terms of Service</a></li>
+          {% endif %}
           <li>&copy; {{ now|date('Y') }} Butcher&rsquo;s Board</li>
         </ul>
       </div>
