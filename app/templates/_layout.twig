@@ -35,6 +35,11 @@
     {# SEOMatic injects <title>, meta tags, Open Graph, JSON-LD, etc. #}
     {% hook 'seomaticRender' %}
 
+    {# Check if Disallow Robots is enabled #}
+    {% if craft.app.config.general.disallowRobots %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+
   </head>
 
   <body>
